@@ -247,6 +247,10 @@ class Node:
         If it does not succeed, connect to node asking for restore
         else, pass the message to the next node
         """
+        if message['src'] == self.id:
+            self.log('Restoring spin up, ring not broken.')
+            return
+
         self.log('Restoring ring')
         sock = self.create_socket()
         for _ in range(MAX_CONN_TRIES):
